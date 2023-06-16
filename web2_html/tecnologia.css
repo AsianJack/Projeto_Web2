@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #F6F1E9;
+}
+
+.cabeca {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
+    height: 120px;
+}
+
+.img-logo {
+    background-size: contain;
+    width: 120px;
+    height: 120px;
+    margin-left: 50px;
+}
+
+header {
+    background-color: #FFB84C;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 120px;
+    width: 100%;
+}
+
+nav a {
+    display: inline;
+    margin-right: 60px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+main {
+    margin-top: 200px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+section {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: left;
+    padding: 10px;
+}
+
+.nodejs {
+    width: 170px;
+    height: 100px;
+}
+.mustache{
+    width: 120px;
+    height: 100px;
+    margin-right: 20px;
+    margin-left: 40px;
+}
+.express{
+    width: 150px;
+    height: 100px;
+    margin-right: 20px;
+    margin-left: 10px;
+}
+h2 {
+    color: #FFB84C;
+    font-size: 24px;
+    height: 28px;
+}
+
+.imagem {
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+footer {
+    background-color: #FFB84C;
+    color: #fff;
+    padding: 3px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 44px;
+    width: 100%;
+}
