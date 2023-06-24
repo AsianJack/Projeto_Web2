@@ -135,6 +135,11 @@ section {
   border: 1.5px solid #ccc;
   height: 30px;
 }
+.conta{
+  position: absolute;
+  bottom: 25%;
+  
+}
 
 footer {
 
