@@ -8,15 +8,15 @@ const PedidoController = require('../controller/pedidos_pastelController');
 const pedidoController = new PedidoController();
 const auth = require('../middleware/autenticacao')
 router.use(auth);
-router.get('/pastel',  async(req, res) => {
+router.get('/pastel', async (req, res) => {
     pastelController.readPasteis()
-      .then((pasteis) => {
-        res.render('pastel', {pasteis: pasteis });
-      })
-      .catch((error) => {
-        res.status(500).json({ error: 'Ocorreu um erro ao obter a lista de produtos.' });
-      });
-  });
+        .then((pasteis) => {
+            res.render('pastel', { pasteis: pasteis });
+        })
+        .catch((error) => {
+            res.status(500).json({ error: 'Ocorreu um erro ao obter a lista de produtos.' });
+        });
+});
 
 
 router.get('/novoPastel', (req, res) => {
@@ -26,10 +26,11 @@ router.get('/novoPastel', (req, res) => {
 router.get('/editarPastel/:id', (req, res) => {
     const PastelId = req.params.id;
 
-    const teste = new ObjectId(PastelId);
-    pastelController.findOne(teste)
-        .then((Pastels) => {
-            res.render('editarPastel', { Pastels });
+    const id = new ObjectId(PastelId);
+    pastelController.findOne(id)
+        .then((Pastel) => {
+            console.log(Pastel)
+            res.render('editar_pastel', { Pastel });
         })
         .catch((error) => {
             res.status(500).json({ error: 'Ocorreu um erro ao buscar o Pastel.' });
@@ -37,11 +38,13 @@ router.get('/editarPastel/:id', (req, res) => {
 });
 
 router.post('/editarPastel', (req, res) => {
-    const { id, nome, medida, PastelAntigo } = req.body;
+    const { id, nome, preco, descricao, PastelAntigo } = req.body;
+
     const novoPastel = {
         nome,
-        medida,
-        timestamp: new Date().getTime(), // Adicionar o timestamp
+        preco,
+        descricao,
+        timestamp: new Date().getTime(),
     };
     const Pastel = req.params.Pastel;
 
@@ -49,7 +52,7 @@ router.post('/editarPastel', (req, res) => {
         .then(() => {
             pedidoController.updatePedidoPastel(PastelAntigo, nome)
                 .then(() => {
-                    res.redirect('/Pastels');
+                    res.redirect('/pastel/pastel');
                 }).catch((error) => {
                     res.status(500).json({ error: 'Ocorreu um erro ao atualizar o Pastel123.' });
                 });
@@ -85,6 +88,7 @@ router.post('/', (req, res) => {
         nome,
         preco,
         descricao,
+        timestamp: new Date().getTime(),
     };
 
     pastelController.createPastel(novoPastel)

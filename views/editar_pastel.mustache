@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Tipo de Pastel</title>
+    <link rel="stylesheet" href="/stylesheets/editar_pastel.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1.0">
+    <link rel="icon" href="/images/desenho-de-pastel-png-Imagem-hd-removebg-preview.png" type="image/x-icon">
+</head>
+<script src="/javascripts/pastel.js"></script>
+<body>
+    <header>
+        <nav>
+            <div class="cabeca">
+                <img src="/images/desenho-de-pastel-png-Imagem-hd-removebg-preview.png" class="img-logo" />
+                <div>
+                    <a href="/pedidos/pedidos">Pedidos</a>
+                    <a href="/pastel/pastel">Pasteis</a>
+                    <a href="/logout">Sair</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <h1>Cadastro de Tipo de Pastel</h1>
+    <div class="formulario">
+        <form action="/pastel/editarPastel" id="cadastro-tipo-pastel-form" method="post">
+            {{#Pastel}}
+            <div class="divisao">
+                <label for="id">ID:</label>
+                <input type="text" id="id" name="id" value="{{_id}}" readonly>
+            </div>
+            <div>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" value="{{nome}}" required>
+            </div>
+            <div>
+                <label for="preco">Preço:</label>
+                <input type="number" id="preco" name="preco" min="0" step="0.01" value="{{preco}}" required>
+            </div>
+            <div>
+                <label for="descricao">Descrição:</label>
+                <textarea id="descricao" name="descricao" required>{{descricao}}</textarea>
+            </div>
+            <input type="hidden" name="PastelAntigo" value="{{nome}}">
+            {{/Pastel}}
+            <button type="submit">Cadastrar Tipo de Pastel</button>
+        </form>
+        {{#Pastel}}
+        <button type="button" class="butao" onclick="excluirPastel('{{_id}}', '{{nome}}')">Excluir</button>
+        {{/Pastel}}
+    </div>
+    <footer>
+    </footer>
+</body>
+
+</html>

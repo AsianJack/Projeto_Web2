@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Pedido</title>
+    <link rel="stylesheet" href="/stylesheets/editar_pedido.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1.0">
+    <link rel="icon" href="/images/desenho-de-pastel-png-Imagem-hd-removebg-preview.png" type="image/x-icon">
+
+</head>
+<script src="/javascripts/editar.js"></script>
+
+<body>
+    <header>
+        <nav>
+            <div class="cabeca">
+                <img src="/images/desenho-de-pastel-png-Imagem-hd-removebg-preview.png" class="img-logo" />
+                <div>
+                    <a href="/pedidos/pedidos">Pedidos</a>
+                    <a href="/pastel/pastel">Pasteis</a>
+                    <a href="/logout">Sair</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <h1>Cadastro de Pedido</h1>
+    <div class="formulario">
+        <form action="/pedidos/editarPedido" method="post" id="cadastro-pedido-form">
+            {{#pedidos}}
+            <div class="divisao">
+                <label for="id">ID:</label>
+                <input type="text" id="id" name="id" value="{{_id}}" readonly>
+            </div>
+            {{/pedidos}}
+            <div class="divisao">
+                <label for="pasteis">Pastéis:</label>
+                <select id="pastel" name="pastel">
+                    {{#pastel}}
+                    <option value="{{nome}}">{{nome}}</option>
+                    {{/pastel}}
+                    {{#pasteisfiltro}}
+                    <option value="{{nome}}">{{nome}}</option>
+                    {{/pasteisfiltro}}
+                </select>
+            </div>
+            {{#pedidos}}
+            <div class="divisao">
+                <label for="quantidade">Quantidade:</label>
+                <input type="number" id="quantidade" name="quantidade" min="1" value="{{quantidade}}">
+            </div>
+            <div class="preco divisao">
+                <label for="preco">Valor:</label>
+                <input type="text" id="preco" name="preco" value="{{preco}}" readonly>
+            </div>
+            <button type="submit">Editar Pedido</button>
+            {{/pedidos}}
+        </form>
+        {{#pedidos}}
+        <button type="button" class="butao" onclick="excluirPedido('{{_id}}')">Excluir</button>
+        {{/pedidos}}
+    </div>
+
+
+    <footer>
+    </footer>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const pasteis = [
+                {{ #pasteisfiltro}}
+                    { nome: "{{nome}}", valor: "{{preco}}" },
+            {{/ pasteisfiltro}}
+            {{ #pastel}}
+            { nome: "{{nome}}", valor: "{{preco}}" },
+            {{/ pastel}}
+            ];
+
+        const pasteisSelect = document.getElementById("pastel");
+        const quantidadeInput = document.getElementById("quantidade");
+        const precoSpan = document.getElementById("preco");
+
+        function updatePreco() {
+            const selectedId = pasteisSelect.value;
+            const quantidade = parseInt(quantidadeInput.value);
+            const pastel = pasteis.find(p => p.nome === selectedId);
+
+            if (pastel) {
+                const preco = isNaN(quantidade) ? 0 : pastel.valor * quantidade;
+                precoSpan.value = preco.toFixed(2);
+            } else {
+                precoSpan.textContent = "0.00";
+            }
+        }
+
+        // Evento de mudança no campo pasteis ou quantidade
+        pasteisSelect.addEventListener("change", updatePreco);
+        quantidadeInput.addEventListener("input", updatePreco);
+
+        // Atualizar o preço inicialmente
+        updatePreco();
+        });
+    </script>
+
+</body>
+
+</html>

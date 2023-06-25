@@ -1,6 +1,16 @@
 const editar = (id) => {
-    window.location.href = `/pedidos/editarPedido/${id}`;
+    window.location.href = `/pastel/editarPastel/${id}`;
 }
+
+async function excluirPastel(id, nome) {
+    await fetch(`/pastel/${id}/${nome}`, { method: "DELETE" })
+      .then((response) => {
+        window.location.href = "/pastel/pastel";
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 document.addEventListener("DOMContentLoaded", function () {
     const buscarInput = document.getElementById("buscar");
     const tabelaPedidos = document.getElementById("pedidos");

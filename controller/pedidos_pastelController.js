@@ -17,11 +17,11 @@ class PedidoController {
         }
     }
 
-    async readPedidos(clienteId) {
+    async readPedidos(UID) {
         try {
             await this.connection.connect();
             this.model = new PedidoModel(this.connection);
-            return (await this.model.readPedidos(clienteId));
+            return (await this.model.readPedidos(UID));
         } finally {
             this.connection.close();
         }
@@ -37,11 +37,11 @@ class PedidoController {
         }
     }
 
-    async updatePedidoProduto(nome, novoproduto) {
+    async updatePedidoPastel(nome, novoPastel) {
         try {
             await this.connection.connect();
             this.model = new PedidoModel(this.connection);
-            await this.model.updatePedidoProduto(nome, novoproduto);
+            await this.model.updatePedidoPastel(nome, novoPastel);
         } finally {
             this.connection.close();
         }
@@ -57,11 +57,11 @@ class PedidoController {
         }
     }
 
-    async deletePedidoProduto(nome) {
+    async deletePedidoPastel(nome) {
         try {
             await this.connection.connect();
             this.model = new PedidoModel(this.connection);
-            await this.model.deletePedidoProduto(nome);
+            await this.model.deletePedidoPastel(nome);
         } finally {
             this.connection.close();
         }

@@ -29,7 +29,6 @@ class PedidoModel {
         try {
             const query = { _id: new ObjectId(pedidoId) };
             const update = { $set: novoPedido };
-            console.log(query)
             const result = await this.collection.updateOne(query, update);
             console.log('Pedido atualizado :', result.modifiedCount);
         } catch (error) {
@@ -38,10 +37,10 @@ class PedidoModel {
         }
     }
 
-    async updatePedidoProduto(nome, novoprod) {
+    async updatePedidoPastel(nome, novopastel) {
         try {
-          const query = { produto: nome };
-          const update = { $set: { produto: novoprod } };
+          const query = { pastel: nome };
+          const update = { $set: { pastel: novopastel } };
           const result = await this.collection.updateMany(query, update);
           console.log('Pedidos atualizados:', result.modifiedCount);
         } catch (error) {
@@ -60,9 +59,9 @@ class PedidoModel {
         }
     }
 
-    async deletePedidoProduto(nome) {
+    async deletePedidoPastel(nome) {
         try {
-            const result = await this.collection.deleteMany({ produto: nome });
+            const result = await this.collection.deleteMany({ pastel: nome });
             console.log('Pedido removido:', result.deletedCount);
         } catch (error) {
             console.error('Erro ao remover o pedido:', error);

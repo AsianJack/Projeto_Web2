@@ -10,57 +10,59 @@ const PastelController = new pastelController();
 const auth = require('../middleware/autenticacao')
 router.use(auth);
 
-router.get('/pedidos', async(req, res) => {
-    const clienteId = req.user.UID;
-    pedidoController.readPedidos(clienteId)
-      .then((pedidos) => {  
-        res.render('home', { pedidos: pedidos });
-      })
-      .catch((error) => {
-        console.log("deubom")
-        res.status(500).json({ error: 'Ocorreu um erro ao obter a lista de pedidos.' });
-      });
-  });
-
-router.get('/novoPedido', (req, res) => {
-    PastelController.readPasteis()
-      .then((pasteis) => {
-        res.render('criar_pedido', { pasteis: pasteis });
-      })
-      .catch((error) => {
-        res.status(500).json({ error: 'Ocorreu um erro ao buscar os pasteis.' });
-      });
-  });
-  
-router.get('/editarPedido/:id', (req, res) => {
-  const pedidoId = req.params.id;
-  const teste = new ObjectId(pedidoId);
-  pedidoController.findOne(teste)
+router.get('/pedidos', async (req, res) => {
+  const clienteId = req.user.UID;
+  pedidoController.readPedidos(clienteId)
     .then((pedidos) => {
-        res.render('editarPedido', { pedidos: pedidos, produto: produto, produtos: produtos });
+      res.render('home', { pedidos: pedidos });
     })
     .catch((error) => {
-      res.status(500).json({ error: 'Ocorreu um erro ao buscar o pedido.' });
+      console.log("deubom")
+      res.status(500).json({ error: 'Ocorreu um erro ao obter a lista de pedidos.' });
     });
 });
 
-router.post('/editarPedido', (req, res) => {
-  const clienteId = req.user.clienteId;
+router.get('/novoPedido', (req, res) => {
+  PastelController.readPasteis()
+    .then((pasteis) => {
+      res.render('criar_pedido', { pasteis: pasteis });
+    })
+    .catch((error) => {
+      res.status(500).json({ error: 'Ocorreu um erro ao buscar os pasteis.' });
+    });
+});
 
-  const { id, usina, produto, quantidade, preco, destino } = req.body;
+router.get('/editarPedido/:id', async (req, res) => {
+  try {
+    const pedidoId = req.params.id;
+    const id = new ObjectId(pedidoId);
+    const pedidos = await pedidoController.findOne(id);
+    const pastel = await PastelController.findOnenome(pedidos.pastel);
+    const pasteis = await PastelController.readPasteis();
+    
+    pasteisfiltro = pasteis.filter((pasteis) => pasteis.nome !== pastel.nome);
+    console.log(pedidos);
+    res.render('editar_pedido', { pedidos, pastel, pasteisfiltro });
+  } catch (error) {
+    res.status(500).json({ error: 'Ocorreu um erro ao buscar o pedido ou produto.' + error });
+  }
+});
+
+router.post('/editarPedido', (req, res) => {
+  const clienteId = req.user.UID;
+
+  const { id, pastel,quantidade, preco, } = req.body;
   const novoPedido = {
-    usina,
-    produto,
+    pastel,
     quantidade,
     preco,
-    destino,
     clienteId,
-    timestamp: new Date().getTime(), // Adicionar o timestamp
+    timestamp: new Date().getTime(),
   };
 
   pedidoController.updatePedido(id, novoPedido)
     .then(() => {
-      res.redirect('/pedidos');
+      res.redirect('/pedidos/pedidos');
     })
     .catch((error) => {
       res.status(500).json({ error: 'Ocorreu um erro ao atualizar o pedido.' });
@@ -69,9 +71,9 @@ router.post('/editarPedido', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   const pedidoId = req.params.id;
-  const teste = new ObjectId(pedidoId);
+  const id = new ObjectId(pedidoId);
 
-  pedidoController.deletePedido(teste)
+  pedidoController.deletePedido(id)
     .then((result) => {
       res.status(200).json({ result: result + "Pedido deletado." });
     })
@@ -88,7 +90,7 @@ router.post('/', (req, res) => {
     quantidade,
     preco,
     clienteId,
-    timestamp: new Date().getTime(), // Adicionar o timestamp
+    timestamp: new Date().getTime(),
   };
 
   pedidoController.createPedido(novoPedido)
