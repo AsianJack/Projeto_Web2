@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Pedido</title>
+    <link rel="stylesheet" href="/stylesheets/criar_pedido.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1.0">
+    <link rel="icon" href="/images/desenho-de-pastel-png-Imagem-hd-removebg-preview.png" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="cabeca">
+                <img src="/images/desenho-de-pastel-png-Imagem-hd-removebg-preview.png" class="img-logo" />
+                <div>
+                    <a href="/pedidos/pedidos">Pedidos</a>
+                    <a href="/pastel/pastel">Pasteis</a>
+                    <a href="/logout">Sair</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <h1>Cadastro de Pedido</h1>
+    <form id="cadastro-pedido-form">
+        <div class="divisao">
+            <label for="pasteis">Pastéis:</label>
+            <select id="pasteis" name="pasteis">
+                {{#pasteis}}
+                <option value="{{id}}">{{nome}}</option>
+                {{/pasteis}}
+            </select>
+        </div>
+        <div class="divisao">
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" id="quantidade" name="quantidade" min="1" value="1">
+        </div>
+        <div class="valor divisao">
+            <label for="valor">Valor:</label>
+            <span id="valor"></span>
+        </div>
+        <button type="submit">Cadastrar Pedido</button>
+    </form>
+    <footer>
+    </footer>
+</body>
+
+</html>

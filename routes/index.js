@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 require('dotenv').config();
+const auth = require('../middleware/autenticacao')
 const nodemailer = require('nodemailer');
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -45,6 +46,9 @@ router.post('/email', (req, res) => {
       }
     });
 });
-
+router.get('/logout', auth, async(req, res) => {
+  res.clearCookie('token');
+  res.redirect('/');
+});
 
 module.exports = router;

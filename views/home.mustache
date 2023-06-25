@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1.0">
+    <title>Lista de Pedidos de Pastel</title>
+    <link rel="stylesheet" href="/stylesheets/home.css" />
+    <link rel="icon" href="/images/desenho-de-pastel-png-Imagem-hd-removebg-preview.png" type="image/x-icon">
+
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.16/jspdf.plugin.autotable.min.js"></script>
+<script src="../javascripts/home.js"></script>
+
+<body>
+    <header>
+        <nav>
+            <div class="cabeca">
+                <img src="/images/desenho-de-pastel-png-Imagem-hd-removebg-preview.png" class="img-logo" />
+                <div>
+                    <a href="/pedidos/pedidos">Pedidos</a>
+                    <a href="/pastel/pastel">Pasteis</a>
+                    <a href="/logout">Sair</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <h1>Lista de Pedidos de Pastel</h1>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Pesquisar" id="buscar" />
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Pastel</th>
+                <th>Quantidade</th>
+                <th>Preço x Quantidade</th>
+            </tr>
+        </thead>
+        <tbody id="pedidos">
+            {{#pedidos}}
+            <tr onclick="editar('{{_id}}')">
+                <td class="idd">{{_id}}</td>
+                <td class="pastel">{{pastel}}</td>
+                <td class="quantidade">{{quantidade}}</td>
+                <td class="preco">R${{preco}}</td>
+            </tr>
+            {{/pedidos}}
+        </tbody>
+    </table>
+    <form action="/pedidos/novoPedido" method="GET">
+        <button class="novo-pedido-button">Novo Pedido</button>
+    </form>
+    <footer>
+    </footer>
+</body>
+
+</html>

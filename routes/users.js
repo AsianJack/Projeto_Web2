@@ -29,25 +29,26 @@ router.post('/cadastrar', (req, res) => {
     });
 });
 
-router.post('/login', async (req, res) => {
-  const email = req.body.email;
-  const senha = req.body.senha;
+router.post('/login', (req, res) => {
+  const email = req.body.username;
+  const senha = req.body.password;
 
-  try {
-    const user = await usuarioController.findOne({ email, senha });
-
-    if (user) {
-      const token = jwt.sign({ UsuarioId: user._id }, process.env.JWT_SENHA, { expiresIn: '1h' });
-      res.cookie('token', token, { httpOnly: true });
-      res.redirect('/home');
-    } else {
-      res.status(400).json({ error: 'Email ou senha inválidos' });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Erro interno do servidor');
-  }
+  usuarioController.findOne({ email, senha })
+    .then(user => {
+      if (user) {
+        const token = jwt.sign({ UID: user._id }, process.env.JWT_SENHA, { expiresIn: '1h' });
+        res.cookie('token', token, { httpOnly: true });
+        res.redirect('/pedidos/pedidos');
+      } else {
+        res.status(400).json({ error: 'Email ou senha inválidos' });
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).send('Erro interno do servidor');
+    });
 });
+
 
 
 module.exports = router;

@@ -4,7 +4,7 @@ class usuarioDAO {
         this.collection = this.connection.database.collection("usuarios");
     }
 
-    async createusuario(usuario) {
+    async createUsuario(usuario) {
         try {
             usuario.timestamp = new Date();
             const result = await this.collection.insertOne(usuario);
@@ -14,7 +14,7 @@ class usuarioDAO {
         }
     }
 
-    async readusuarios() {
+    async readUsuarios() {
         try {
             const usuarios = await this.collection.find().toArray();
             console.log('usuarios encontrados:', usuarios);
@@ -24,7 +24,7 @@ class usuarioDAO {
         }
     }
 
-    async updateusuario(filter, update) {
+    async updateUsuario(filter, update) {
         try {
             const result = await this.collection.updateOne(filter, update);
             console.log('usuario atualizado:', result.modifiedCount);
@@ -33,7 +33,7 @@ class usuarioDAO {
         }
     }
 
-    async deleteusuario(filter) {
+    async deleteUsuario(filter) {
         try {
             const result = await this.collection.deleteOne(filter);
             console.log('usuario removido:', result.deletedCount);

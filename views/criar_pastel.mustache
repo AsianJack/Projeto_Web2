@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Tipo de Pastel</title>
+    <link rel="stylesheet" href="/stylesheets/criar_pastel.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1.0">
+    <link rel="icon" href="/images/desenho-de-pastel-png-Imagem-hd-removebg-preview.png" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="cabeca">
+                <img src="/images/desenho-de-pastel-png-Imagem-hd-removebg-preview.png" class="img-logo" />
+                <div>
+                    <a href="/pedidos/pedidos">Pedidos</a>
+                    <a href="/pastel/pastel">Pasteis</a>
+                    <a href="/logout">Sair</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <h1>Cadastro de Tipo de Pastel</h1>
+    <form action="/pastel/" id="cadastro-tipo-pastel-form" method="post">
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+        </div>
+        <div>
+            <label for="preco">Preço:</label>
+            <input type="number" id="preco" name="preco" min="0" step="0.01" required>
+        </div>
+        <div>
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" required></textarea>
+        </div>
+        <button type="submit">Cadastrar Tipo de Pastel</button>
+    </form>
+    <footer>
+    </footer>
+</body>
+
+</html>
