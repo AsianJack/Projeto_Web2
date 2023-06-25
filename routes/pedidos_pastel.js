@@ -81,21 +81,19 @@ router.delete('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const clienteId = req.user.clienteId;
-  const { usina, produto, quantidade, preco, destino } = req.body;
+  const clienteId = req.user.UID;
+  const { pastel, quantidade, preco } = req.body;
   const novoPedido = {
-    usina,
-    produto,
+    pastel,
     quantidade,
     preco,
-    destino,
     clienteId,
     timestamp: new Date().getTime(), // Adicionar o timestamp
   };
 
   pedidoController.createPedido(novoPedido)
     .then(() => {
-      res.redirect('/pedidos');
+      res.redirect('/pedidos/pedidos');
     })
     .catch((error) => {
       res.status(500).json({ error: 'Ocorreu um erro ao cadastrar o pedido.' });

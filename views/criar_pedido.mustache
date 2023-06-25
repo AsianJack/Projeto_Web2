@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1.0">
     <link rel="icon" href="/images/desenho-de-pastel-png-Imagem-hd-removebg-preview.png" type="image/x-icon">
+    <script src="/javascripts/pastel.js"></script>
 </head>
 
 <body>
@@ -25,12 +26,12 @@
         </nav>
     </header>
     <h1>Cadastro de Pedido</h1>
-    <form id="cadastro-pedido-form">
+    <form action="/pedidos/" method="post" id="cadastro-pedido-form">
         <div class="divisao">
             <label for="pasteis">Pastéis:</label>
-            <select id="pasteis" name="pasteis">
+            <select id="pastel" name="pastel">
                 {{#pasteis}}
-                <option value="{{id}}">{{nome}}</option>
+                <option value="{{nome}}">{{nome}}</option>
                 {{/pasteis}}
             </select>
         </div>
@@ -38,14 +39,51 @@
             <label for="quantidade">Quantidade:</label>
             <input type="number" id="quantidade" name="quantidade" min="1" value="1">
         </div>
-        <div class="valor divisao">
-            <label for="valor">Valor:</label>
-            <span id="valor"></span>
+        <div class="preco divisao">
+            <label for="preco">Valor:</label>
+            <input type="text" id="preco" name="preco" readonly>
         </div>
         <button type="submit">Cadastrar Pedido</button>
     </form>
     <footer>
     </footer>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const pasteis = [
+                {{ #pasteis}}
+                    { nome: "{{nome}}", valor: "{{preco}}" },
+            {{/ pasteis}}
+            ];
+
+        const pasteisSelect = document.getElementById("pastel");
+        const quantidadeInput = document.getElementById("quantidade");
+        const precoSpan = document.getElementById("preco");
+
+        function updatePreco() {
+            const selectedId = pasteisSelect.value;
+            const quantidade = parseInt(quantidadeInput.value);
+            const pastel = pasteis.find(p => p.nome === selectedId);
+
+            if (pastel) {
+                const preco = isNaN(quantidade) ? 0 : pastel.valor * quantidade;
+                precoSpan.value = preco.toFixed(2);
+            } else {
+                precoSpan.textContent = "0.00";
+            }
+        }
+
+        // Evento de mudança no campo pasteis ou quantidade
+        pasteisSelect.addEventListener("change", updatePreco);
+        quantidadeInput.addEventListener("input", updatePreco);
+
+        // Atualizar o preço inicialmente
+        updatePreco();
+        });
+    </script>
+
 </body>
 
 </html>

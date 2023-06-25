@@ -88,7 +88,7 @@ label {
     font-weight: bold;
 }
 
-select, input[type="number"] {
+select, input[type="number"],input[type="text"] {
     width: 200px;
     padding: 5px;
     border: 1px solid #ccc;
