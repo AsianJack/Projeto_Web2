@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const { ObjectId } = require('mongodb');
 const PastelController = require('../controller/pastelController');
 const pastelController = new PastelController();
@@ -8,6 +7,7 @@ const PedidoController = require('../controller/pedidos_pastelController');
 const pedidoController = new PedidoController();
 const auth = require('../middleware/autenticacao')
 router.use(auth);
+
 router.get('/pastel', async (req, res) => {
     pastelController.readPasteis()
         .then((pasteis) => {
@@ -98,4 +98,19 @@ router.post('/', (req, res) => {
             res.status(500).json({ error: 'Ocorreu um erro ao cadastrar o Pastel.' });
         });
 });
+
+router.get("/automatico", async (req, res) => {
+    const pasteis = [
+        { nome: "Pastel de Queijo", preco: 5.99, descricao: "Delicioso pastel recheado com queijo derretido.", timestamp: new Date().getTime() },
+        { nome: "Pastel de Carne", preco: 6.99, descricao: "Pastel suculento recheado com carne moída temperada.", timestamp: new Date().getTime() },
+        { nome: "Pastel de Frango", preco: 6.49, descricao: "Pastel com recheio de frango desfiado e temperado.", timestamp: new Date().getTime() },
+        { nome: "Pastel de Palmito", preco: 5.99, descricao: "Pastel com recheio cremoso de palmito.", timestamp: new Date().getTime() },
+        { nome: "Pastel de Calabresa", preco: 6.49, descricao: "Pastel saboroso recheado com calabresa e cebola.", timestamp: new Date().getTime() }
+    ];
+    console.log(pasteis.length)
+    for (var i = 0; i < pasteis.length; i++) {
+            await pastelController.createPastel(pasteis[i])
+    }
+    res.redirect("/pastel/pastel")
+})
 module.exports = router;

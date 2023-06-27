@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function exportToPdf() {
-    const tabelaPedidos = document.getElementById("pedidos-table");
+    const tabelaPedidos = document.getElementById("myTable");
     const rows = tabelaPedidos.getElementsByTagName("tr");
     const doc = new window.jspdf.jsPDF();
     let y = 20;
