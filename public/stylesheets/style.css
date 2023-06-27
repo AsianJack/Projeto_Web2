@@ -134,10 +134,14 @@ section {
   width: 300px;
   border: 1.5px solid #ccc;
   height: 30px;
+  padding: 8px;
 }
 .conta{
   position: absolute;
   bottom: 25%;
+}
+.emailsenha{
+  color: #ED2B2A;
 }
 footer {
 

@@ -71,7 +71,7 @@ router.post('/editarPedido', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   const pedidoId = req.params.id;
-  const id = new ObjectId(pedidoId);
+  const id = {_id:new ObjectId(pedidoId)};
 
   pedidoController.deletePedido(id)
     .then((result) => {

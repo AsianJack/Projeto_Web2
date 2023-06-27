@@ -66,10 +66,9 @@ router.delete('/:id/:nome', (req, res) => {
     const PastelId = req.params.id;
     const Pastel = req.params.nome;
     const teste = new ObjectId(PastelId);
-    console.log(Pastel)
     pastelController.deletePastel(teste)
         .then((result) => {
-            pedidoController.deletePedidoPastel(Pastel)
+            pedidoController.deletePedidoMany({ pastel: Pastel })
                 .then(() => {
                     res.status(200).json({ result: result + "Pastel deletado." });
                 }).catch((error) => {

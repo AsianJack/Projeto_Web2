@@ -35,7 +35,9 @@
                 <br>
                 <label style="font-size: 20px;" for="password"><b>Senha</b></label>
                 <input type="password" class="inputao" id="password" name="password" required>
-                <br>
+
+                <label for="error" class="emailsenha" id="error" style="display: none;">Email/Senha Incorreto</label>
+
                 <input type="submit" value="Entrar" class="btn btn-primary"
                     style="display: block; width: 120px; margin: 0 auto; background-color: #FFB84C;">
             </form>
@@ -49,5 +51,16 @@
     </footer>
 
 </body>
+<script>
+    {{#erro}}
+    const erro = "{{erro}}";
+    console.log(erro)
+    if (erro === "error") {
+        document.getElementById("error").style.display = "flex";
+    } else {
+        document.getElementById("error").style.display = "none";
+    }
+    {{/erro}}
+</script>
 
 </html>

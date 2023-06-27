@@ -57,11 +57,11 @@ class PedidoController {
         }
     }
 
-    async deletePedidoPastel(nome) {
+    async deletePedidoMany(nome) {
         try {
             await this.connection.connect();
             this.model = new PedidoModel(this.connection);
-            await this.model.deletePedidoPastel(nome);
+            await this.model.deletePedidoMany(nome);
         } finally {
             this.connection.close();
         }

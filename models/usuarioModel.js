@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 class usuarioDAO {
     constructor(connection) {
         this.connection = connection;
@@ -18,15 +19,17 @@ class usuarioDAO {
         try {
             const usuarios = await this.collection.find().toArray();
             console.log('usuarios encontrados:', usuarios);
-            return(usuarios)
+            return (usuarios)
         } catch (error) {
             console.error('Erro ao ler os usuarios:', error);
         }
     }
 
-    async updateUsuario(filter, update) {
+    async updateUsuario(filter, updateuser) {
         try {
-            const result = await this.collection.updateOne(filter, update);
+            const query = { _id: new ObjectId(filter) };
+            const update = { $set: updateuser };
+            const result = await this.collection.updateOne(query, update);
             console.log('usuario atualizado:', result.modifiedCount);
         } catch (error) {
             console.error('Erro ao atualizar o usuario:', error);
@@ -49,7 +52,15 @@ class usuarioDAO {
         } catch (error) {
             console.error('Erro ao logar', error);
         }
-      }
+    }
+    async findOneId(query) {
+        try {
+            const result = await this.collection.findOne(new ObjectId(query));
+            return (result);
+        } catch (error) {
+            console.error('Erro ao logar', error);
+        }
+    }
 
 }
 

@@ -9,7 +9,6 @@ var pedidosRouter = require('./routes/pedidos_pastel');
 var pastelRouter = require('./routes/pastel');
 
 var app = express();
-app.use(cookieParser());
 
 var mustacheExpress = require("mustache-express");
 var engine = mustacheExpress();

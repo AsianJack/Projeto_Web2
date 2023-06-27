@@ -49,10 +49,18 @@ nav a {
     text-decoration: none;
 }
 
+.divisao {
+    overflow-y: auto;
+    margin-top: 120px;
+    margin-bottom: 50px;
+    width: 100%;
+}
+
 main {
     margin: auto;
     text-align: center;
-}
+    width: 80%;
+}   
 
 section {
     margin-bottom: 40px;
@@ -68,17 +76,35 @@ section {
     width: 170px;
     height: 100px;
 }
-.mustache{
+
+.mustache {
     width: 120px;
     height: 100px;
     margin-right: 20px;
     margin-left: 40px;
 }
-.express{
+
+.express {
     width: 150px;
     height: 100px;
     margin-right: 20px;
     margin-left: 10px;
+}
+.mongo{
+    width: 150px;
+    height: 100px;
+    margin-right: 20px;
+    margin-left: 15px;
+}
+.jwt{
+    width: 150px;
+    height: 50px;
+    margin-right: 35px;
+}
+.dotenv{
+    width: 100px;
+    height: 100px;
+    margin-right: 60px;
 }
 h2 {
     color: #FFB84C;

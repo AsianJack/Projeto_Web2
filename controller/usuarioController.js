@@ -1,6 +1,6 @@
 const DBConnection = require('../models/banco_de_dados');
 const UsuarioModel = require('../models/usuarioModel');
-
+const { ObjectId } = require('mongodb');
 class UsuarioController {
   constructor() {
     this.connection = new DBConnection();
@@ -52,6 +52,16 @@ class UsuarioController {
       await this.connection.connect();
       this.model = new UsuarioModel(this.connection);
       return await this.model.findOne(query);
+    } finally {
+      this.connection.close();
+    }
+  }
+
+  async findOneId(query) {
+    try {
+      await this.connection.connect();
+      this.model = new UsuarioModel(this.connection);
+      return await this.model.findOneId(query);
     } finally {
       this.connection.close();
     }
