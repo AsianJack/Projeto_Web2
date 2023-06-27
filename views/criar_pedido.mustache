@@ -30,7 +30,7 @@
     <form action="/pedidos/" method="post" id="cadastro-pedido-form">
         <div class="divisao">
             <label for="pasteis">Pastéis:</label>
-            <select id="pastel" name="pastel">
+            <select id="pastel" name="pastel" required>
                 {{#pasteis}}
                 <option value="{{nome}}">{{nome}}</option>
                 {{/pasteis}}
@@ -38,7 +38,7 @@
         </div>
         <div class="divisao">
             <label for="quantidade">Quantidade:</label>
-            <input type="number" id="quantidade" name="quantidade" min="1" value="1">
+            <input type="number" id="quantidade" name="quantidade" min="1" value="1" required>
         </div>
         <div class="preco divisao">
             <label for="preco">Valor:</label>
@@ -54,9 +54,9 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const pasteis = [
-                {{ #pasteis}}
+                {{#pasteis}}
                     { nome: "{{nome}}", valor: "{{preco}}" },
-            {{/ pasteis}}
+            {{/pasteis}}
             ];
 
         const pasteisSelect = document.getElementById("pastel");

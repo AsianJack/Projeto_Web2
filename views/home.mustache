@@ -16,10 +16,11 @@
         crossorigin="anonymous"></script>
         <link rel="stylesheet" href="/stylesheets/home.css" />
 </head>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.16/jspdf.plugin.autotable.min.js"></script>
-<script src="../javascripts/home.js"></script>
+
 
 <body>
     <header>
@@ -47,7 +48,7 @@
                 <th>ID</th>
                 <th>Pastel</th>
                 <th>Quantidade</th>
-                <th>Preço x Quantidade</th>
+                <th>Preço</th>
             </tr>
         </thead>
         <tbody id="pedidos">
@@ -64,8 +65,10 @@
     <form action="/pedidos/novoPedido" method="GET">
         <button class="novo-pedido-button">Novo Pedido</button>
     </form>
+    <button class="pdf" onclick="exportToPdf()">PDF</button>
     <footer>
     </footer>
+    <script src="../javascripts/home.js"></script>
 </body>
 
 </html>

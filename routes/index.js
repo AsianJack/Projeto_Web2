@@ -19,7 +19,9 @@ router.get('/', function (req, res, next) {
 router.get('/contato', function (req, res, next) {
   res.render('contato');
 });
-
+router.get('/sobre', function (req, res, next) {
+  res.render('sobre');
+});
 router.get('/tecnologias', function (req, res, next) {
   res.render('tecnologias');
 });

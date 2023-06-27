@@ -38,7 +38,7 @@
             {{/pedidos}}
             <div class="divisao">
                 <label for="pasteis">Pastéis:</label>
-                <select id="pastel" name="pastel">
+                <select id="pastel" name="pastel" required>
                     {{#pastel}}
                     <option value="{{nome}}">{{nome}}</option>
                     {{/pastel}}
@@ -50,7 +50,7 @@
             {{#pedidos}}
             <div class="divisao">
                 <label for="quantidade">Quantidade:</label>
-                <input type="number" id="quantidade" name="quantidade" min="1" value="{{quantidade}}">
+                <input type="number" id="quantidade" name="quantidade" min="1" value="{{quantidade}}" required>
             </div>
             <div class="preco divisao">
                 <label for="preco">Valor:</label>
