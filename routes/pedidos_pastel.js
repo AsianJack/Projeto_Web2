@@ -41,7 +41,6 @@ router.get('/editarPedido/:id', async (req, res) => {
     const pasteis = await PastelController.readPasteis();
     
     pasteisfiltro = pasteis.filter((pasteis) => pasteis.nome !== pastel.nome);
-    console.log(pedidos);
     res.render('editar_pedido', { pedidos, pastel, pasteisfiltro });
   } catch (error) {
     res.status(500).json({ error: 'Ocorreu um erro ao buscar o pedido ou produto.' + error });

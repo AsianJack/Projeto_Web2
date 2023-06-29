@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/criar_conta.css" />
     <title>Cadastro de Usuário</title>
-    <link rel="icon" href="desenho-de-pastel-png-Imagem-hd-removebg-preview.png" type="image/x-icon">
+    <link rel="icon" href="/images/desenho-de-pastel-png-Imagem-hd-removebg-preview.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
@@ -47,7 +47,9 @@
 
         <input type="radio" id="sexo_feminino" name="sexo" value="feminino" required>
         <label for="sexo_feminino">Feminino</label><br>
-
+        {{#erro}}
+        <div style="color: #ED2B2A; margin-left: 25px;margin-top: 10px;">{{erro}}</div>
+        {{/erro}}
         <input type="submit" value="Cadastrar">
     </form>
     <footer>

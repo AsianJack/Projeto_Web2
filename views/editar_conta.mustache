@@ -50,6 +50,9 @@
             <input type="radio" id="sexo_feminino" name="sexo" value="feminino" required>
             <label for="sexo_feminino">Feminino</label><br>
             {{/usuario}}
+            {{#erro}}
+            <div style="color: #ED2B2A; margin-left: 25px;margin-top: 10px;">{{erro}}</div>
+            {{/erro}}
             <input type="submit" value="Cadastrar">
 
         </form>
@@ -60,7 +63,7 @@
     </footer>
 
     <script>
-        {{ #usuario }}
+        {{#usuario}}
         const sexo = "{{sexo}}";
         if (sexo === "masculino") {
             document.getElementById("sexo_masculino").checked = true;

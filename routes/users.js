@@ -7,6 +7,8 @@ const PedidoController = require('../controller/pedidos_pastelController');
 const pedidoController = new PedidoController();
 const auth = require('../middleware/autenticacao');
 const { ObjectId } = require('mongodb');
+const validation = require("../middleware/validacao")
+const valadicao = new validation
 router.get('/cadastrar', (req, res) => {
   res.render('criar_conta');
 });
@@ -21,14 +23,19 @@ router.post('/cadastrar', (req, res) => {
     data_nascimento,
     sexo,
   };
+  const { error } = valadicao.validaUsuario(novoUsuario)
+  if (error) {
+    res.render('criar_conta', { erro: error.details[0].message });
+  } else {
+    usuarioController.createUsuario(novoUsuario)
+      .then(() => {
+        res.redirect('/');
+      })
+      .catch((error) => {
+        res.status(500).json({ error: 'Ocorreu um erro ao cadastrar o Usuário.' });
+      });
+  }
 
-  usuarioController.createUsuario(novoUsuario)
-    .then(() => {
-      res.redirect('/');
-    })
-    .catch((error) => {
-      res.status(500).json({ error: 'Ocorreu um erro ao cadastrar o Usuário.' });
-    });
 });
 
 router.get('/telaeditar', auth, (req, res) => {
@@ -52,14 +59,25 @@ router.post('/editar', auth, (req, res) => {
     data_nascimento,
     sexo,
   };
+  const { error } = valadicao.validaUsuario(novoUsuario)
+  if (error) {
+    usuarioController.findOneId(clienteId)
+      .then((usuario) => {
+        res.render('editar_conta', { usuario: usuario, erro: error.details[0].message })
+      }).catch((error) => {
+        console.log(error)
+        res.status(500).json({ error: 'Ocorreu um erro.' + error });
+      });
+  } else {
+    usuarioController.updateUsuario(clienteId, novoUsuario)
+      .then(() => {
+        res.redirect('/pedidos/pedidos');
+      })
+      .catch((error) => {
+        res.status(500).json({ error: 'Ocorreu um erro ao editar o Usuário.' });
+      });
+  }
 
-  usuarioController.updateUsuario(clienteId, novoUsuario)
-    .then(() => {
-      res.redirect('/pedidos/pedidos');
-    })
-    .catch((error) => {
-      res.status(500).json({ error: 'Ocorreu um erro ao cadastrar o Usuário.' });
-    });
 });
 
 router.delete('/', auth, (req, res) => {

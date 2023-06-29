@@ -1,6 +1,13 @@
+const fs = require('fs');
+var path = require('path');
+const { execSync } = require('child_process');
+const nodeModulesExists = fs.existsSync(path.join(__dirname, 'node_modules'));
+if (!nodeModulesExists) {
+  execSync('npm install --force-sync');
+}
+
 var createError = require('http-errors');
 var express = require('express');
-var path = require('path');
 var cookieParser = require('cookie-parser');
 
 var indexRouter = require('./routes/index');
