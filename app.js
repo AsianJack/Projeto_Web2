@@ -3,7 +3,9 @@ var path = require('path');
 const { execSync } = require('child_process');
 const nodeModulesExists = fs.existsSync(path.join(__dirname, 'node_modules'));
 if (!nodeModulesExists) {
+  console.log("instalando dependencias")
   execSync('npm install --force-sync');
+  console.log("dependencias instaladas")
 }
 
 var createError = require('http-errors');

@@ -22,7 +22,9 @@ router.post('/cadastrar', (req, res) => {
     senha,
     data_nascimento,
     sexo,
+    acesso: 0
   };
+
   const { error } = valadicao.validaUsuario(novoUsuario)
   if (error) {
     res.render('criar_conta', { erro: error.details[0].message });
@@ -99,14 +101,16 @@ router.delete('/', auth, (req, res) => {
     });
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const email = req.body.username;
   const senha = req.body.password;
 
-  usuarioController.findOne({ email, senha })
+  await usuarioController.findOne({ email, senha })
     .then(user => {
       if (user) {
-        const token = jwt.sign({ UID: user._id }, process.env.JWT_SENHA, { expiresIn: '1h' });
+        user.acesso = user.acesso + 1
+        usuarioController.updateUsuario(user._id, user)
+        const token = jwt.sign({ UID: user._id, acesso: user.acesso }, process.env.JWT_SENHA, { expiresIn: '1h' });
         res.cookie('token', token, { httpOnly: true });
         res.redirect('/pedidos/pedidos');
       } else {
@@ -119,6 +123,12 @@ router.post('/login', (req, res) => {
     });
 });
 
-
+router.get('/acesso', auth, async (req, res) => {
+  const clienteId = req.user.UID;
+  await usuarioController.findOne({ _id: new ObjectId(clienteId) })
+    .then((user) => {
+      res.status(200).json({ acessos: user.acesso });
+    })
+});
 
 module.exports = router;

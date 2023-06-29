@@ -20,6 +20,7 @@ class validacao {
             sexo: Joi.string().required().messages({
                 'any.required': 'O campo "sexo" é obrigatório.'
             }),
+            acesso: Joi.number(),
             timestamp: Joi.date().timestamp().messages({
                 'date.timestamp': 'O campo "timestamp" deve ser um timestamp válido.'
             })

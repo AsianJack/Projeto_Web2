@@ -13,7 +13,8 @@ const authenticateToken = (req, res, next) => {
     }
 
     req.user = {
-      UID: decoded.UID
+      UID: decoded.UID,
+      acesso:decoded.acesso
     };
     next();
   });
