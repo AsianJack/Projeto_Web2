@@ -33,8 +33,9 @@ class validacao {
             pastel: Joi.string().required().messages({
                 'any.required': 'O campo "pastel" é obrigatório.'
             }),
-            quantidade: Joi.number().required().messages({
-                'any.required': 'O campo "quantidade" é obrigatório.'
+            quantidade: Joi.number().min(1).required().messages({
+                'any.required': 'O campo "quantidade" é obrigatório.',
+                'number.min': 'O campo "quantidade" deve ser maior que 0.'
             }),
             preco: Joi.number().required().messages({
                 'any.required': 'O campo "preco" é obrigatório.'
@@ -54,7 +55,7 @@ class validacao {
             nome: Joi.string().required().messages({
                 'any.required': 'O campo "nome" é obrigatório.'
             }),
-            preco: Joi.string().valid('Consulta', 'Tosa', 'Banho').required().messages({
+            preco: Joi.string().min(0.01).valid('Consulta', 'Tosa', 'Banho').required().messages({
                 'any.required': 'O campo "preco" é obrigatório.',
                 'any.only': 'O campo "preco" deve ser uma das opções: Consulta, Tosa, Banho.'
             }),
